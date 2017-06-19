@@ -1,0 +1,12 @@
+@CHARSET "ISO-8859-1";
+.panel{
+	background-color:rgba(0,0,0,0.5);
+	color:white;
+	border-radius:25px;
+}
+html, body{
+  background: url(img/tile.jpg);
+}
+.panel-body{
+	background-color:rgba(0,0,0,0);
+}
