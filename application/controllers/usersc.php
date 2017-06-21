@@ -4,6 +4,9 @@ require("Restful_Controller.php");
 
 class UsersC extends Restful_Controller{
 	
+	private $validation_errors;
+	private $validationResult = true;	
+	
 	public function __construct(){
 		parent::__construct();
 		$this->load->model("users");
@@ -95,7 +98,7 @@ class UsersC extends Restful_Controller{
 				array('field' => 'address',
 						'rules' => 'trim|required'
 				),
-				array('field' => 'phoneNumber',
+				array('field' => 'phone',
 						'rules' => 'trim'
 				),
 				array('field' => 'gender',
@@ -163,7 +166,7 @@ class UsersC extends Restful_Controller{
 				array('field' => 'address',
 						'rules' => 'trim|required'
 				),
-				array('field' => 'phoneNumber',
+				array('field' => 'phone',
 						'rules' => 'trim'
 				),
 				array('field' => 'gender',
@@ -229,57 +232,104 @@ class UsersC extends Restful_Controller{
 		if(isset($_POST['birthYear']) && isset($_POST["birthMonth"]) && isset($_POST["birthDate"])){
 			$_POST["birthdate"] = $_POST['birthYear']."-".$_POST["birthMonth"]."-".$_POST["birthDate"];
 		}
-		echo "Put data";
-		var_dump($_POST);
 		
-		$validationRules = array(
-				array('field' => 'firstName',
-						'rules' => 'trim|required'
-				),
-				array('field' => 'lastName',
-						'rules' => 'trim|required'
-				),
-				array('field' => 'middleName',
-						'rules' => 'trim|required'
-				),
-				array('field' => 'birthdate',
-						'rules' => 'trim|required'
-				),
-				array('field' => 'email',
-						'rules' => 'trim|required|valid_email'
-				),
-				array('field' => 'address',
-						'rules' => 'trim|required'
-				),
-				array('field' => 'phoneNumber',
-						'rules' => 'trim'
-				),
-				array('field' => 'gender',
-						'rules' => 'trim'
-				),
-				array('field' => 'privilege',
-						'rules' => 'trim|required'
-				)
-		);
+		//for some reason the codeigniter validation 
+		//returns an emtpy error array when the validation fails
+		//for now doing manual validation
+// 		echo "Put data";
+// 		var_dump($_POST);
 		
-		//reset the form validation first
-		//$this->form_validation = new CI_Form_validation();
+// 		$validationRules = array(
+// 				array('field' => 'firstName',
+// 						'rules' => 'trim|required'
+// 				),
+// 				array('field' => 'lastName',
+// 						'rules' => 'trim|required'
+// 				),
+// 				array('field' => 'middleName',
+// 						'rules' => 'trim|required'
+// 				),
+// 				array('field' => 'birthdate',
+// 						'rules' => 'trim|required'
+// 				),
+// 				array('field' => 'email',
+// 						'rules' => 'trim|required|valid_email'
+// 				),
+// 				array('field' => 'address',
+// 						'rules' => 'trim|required'
+// 				),
+// 				array('field' => 'phone',
+// 						'rules' => 'trim|required'
+// 				),
+// 				array('field' => 'gender',
+// 						'rules' => 'trim|required'
+// 				),
+// 				array('field' => 'privilege',
+// 						'rules' => 'trim|required'
+// 				)
+// 		);
 		
-		//$this->form_validation->set_data($_POST);
-		$this->form_validation->set_rules($validationRules);
+// 		$this->form_validation->set_rules($validationRules);
 		
-		if($this->form_validation->run() === FALSE){ //validation failed
+// 		if($this->form_validation->run() === FALSE){ //validation failed
 								
-			//var_dump( $this->form_validation->validation_errors() );
-			$result["message"] = $this->form_validation->error_array();
+// 			//var_dump( $this->form_validation->validation_errors() );
+// 			$result["message"] = $this->form_validation->error_array();
+// 			$result["title"] = "Validation Error";
+// 			$result["result"] = VALIDATION_ERROR;
+// 		}
+		
+		$this->validation_errors = array();
+		
+		$_POST["firstName"] = ($this->basicValidation($_POST["firstName"], "First Name") == true ) ? 
+			$_POST["firstName"] : "";
+		$_POST["lastName"] = ($this->basicValidation($_POST["lastName"], "Last Name") == true ) ? 
+			$_POST["lastName"] : "";
+		$_POST["middleName"] = ($this->basicValidation($_POST["middleName"], "") == true ) ? 
+			$_POST["middleName"] : "";
+		$_POST["birthdate"] = ($this->basicValidation($_POST["birthdate"], "") == true ) ? 
+			$_POST["birthdate"] : "";
+		$_POST["email"] = ($this->basicValidation($_POST["email"], "") == true ) ? 
+			$_POST["email"] : "";
+		$_POST["address"] = ($this->basicValidation($_POST["address"], "") == true ) ? 
+			$_POST["address"] : "";
+		$_POST["phone"] = ($this->basicValidation($_POST["phone"], "") == true ) ? 
+			$_POST["phone"] : "";
+		$_POST["gender"] = ($this->basicValidation($_POST["gender"], "") == true ) ? 
+			$_POST["gender"] : "";
+		$_POST["privilege"] = ($this->basicValidation($_POST["privilege"], "") == true ) ? 
+			$_POST["privilege"] : "";
+				
+		if (!filter_var($_POST["email"], FILTER_VALIDATE_EMAIL)) {
+			$this->validationResult = false;
+			array($this->validation_errors,"Invalid email format");
+		}
+		
+		if($this->validationResult == false){
+			$result["message"] = $this->validation_errors;
 			$result["title"] = "Validation Error";
 			$result["result"] = VALIDATION_ERROR;
-		}
+		}		
 		else{ //validation success
-			$result= $this->users->updateUserCredentials($_POST);				
+			$result= $this->users->updateUserDetails($_POST);				
 		}
 		
 		return $result;
+	}
+	
+	private function basicValidation($field, $fieldName){
+		
+		$this->validationResult = true;
+		
+		if( isset($field)) {
+			$field = trim($field);
+			array_push($this->validation_errors, "Missing element $fieldName.");
+		}
+		else{
+			$this->validationResult= false;
+		}
+		
+		return $this->validationResult;
 	}
 	
 	public function doGet(){

@@ -1,7 +1,7 @@
 <?php
 class Client extends CI_Model{
 
-	private $isDebugMode = true;
+	private $isDebugMode = false;
 	
 	public function __construct(){
 		parent::__construct();
@@ -76,9 +76,11 @@ class Client extends CI_Model{
 	
 	public function getAllClients($start=0, $limit=10){
 		
-		$this->db->select("client");
-		$query = $this->db->limit($start, $limit);
+		$this->db->select("*");
+		$this->db->limit($limit, $start );
+		$query = $this->db->get("client");			
 		
+		echoLog($this->db->last_query(), true);
 		return $query->result();
 	}
 }

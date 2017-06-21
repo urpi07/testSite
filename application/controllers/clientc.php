@@ -38,7 +38,12 @@ class ClientC extends Restful_Controller{
 					$start = (isset($_GET["start"]) ) ? $_GET["start"] : 0;
 					$limit = (isset($_GET["limit"]) ) ? $_GET["limit"] : 10;										
 					
-					$this->client->getAllClients($start, $limit);
+					$data["clients"] = $this->client->getAllClients($start, $limit);
+					var_dump($data);
+					
+					$this->load->view('templates/header', $data);
+					$this->load->view('client/'.$page, $data);
+					$this->load->view('templates/footer', $data);
 					break;
 					
 				default:

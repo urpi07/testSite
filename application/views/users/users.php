@@ -5,8 +5,9 @@
 
 		<!-- New User Form -->
 		<div id="newUser" class="collapse">
+					
 			<form method="POST" class="form-horizontal" action="userAccount"
-				id="newusers">
+				id="newusers" name="newusers">
 				<div class="panel panel-default">
 					<div class="panel-body inner-panel">
 						<!-- TODO: Upload of the profile image -->
@@ -344,6 +345,7 @@
 
 				console.log("done data " + JSON.stringify(data));
 				var getData = JSON.parse(data);
+				
 				if(getData && getData.result == 1){
 					$("#credentialPanel").hide();
 					populateFields(getData.user);	
@@ -402,7 +404,7 @@
 			console.log("update data " + data);
 			var retData = JSON.parse(data);
 
-			if(retData && retData.result == 1){
+			if(retData && retData.result == 1){				
 				loadPage("users");
 			}
 			else{
@@ -412,6 +414,7 @@
 			completeSubmit();
 		})
 		.fail(function(data){
+			console.log("errors data " + JSON.stringify(data) );
 			completeSubmit();
 		});						
 	}
@@ -539,7 +542,7 @@
 					"gender":gender,"privilege":privilege,"firstName":firstName,
 					"lastName":lastName,"middleName":middleName,"email":email,
 					"address":address,"phone":phone,"username":username,
-					"password":password,"vpassword":vpassword, "phoneNumber": phone			    	
+					"password":password,"vpassword":vpassword			    	
 				};
 			break;
 
@@ -548,7 +551,7 @@
 					"birthMonth":birthMonth,"birthDate":birthDate,"birthYear":birthYear,
 					"gender":gender,"privilege":privilege,"firstName":firstName,
 					"lastName":lastName,"middleName":middleName,"email":email,
-					"address":address,"phone":phone, "phoneNumber": phone			    	
+					"address":address,"phone":phone			    	
 				};
 			break;
 		}
@@ -635,10 +638,10 @@
 			}
 		});
 
-		$("#cancelUserDelete").click(function(event){
-			$("#cancelUserDelete").attr("disabled", "disabled");
-			$("#deleteModal").modal();
-		});
+// 		$("#cancelUserDelete").click(function(event){
+// 			$("#cancelUserDelete").attr("disabled", "disabled");
+// 			$("#deleteModal").modal();
+// 		});
 
 		//$("#okErrorModal").click(function(event){
 			//$(this).modal();
@@ -647,18 +650,18 @@
 		
 		//disable/reenable buttons after finishing transitions,
 		//to prevent unnecessary call.
-		$("#deleteModal").on("hidden.bs.modal", function(event){
-			$("#cancelUserDelete").removeAttr("disabled");
-			$("#confirmUserDelete").attr("disabled", "disabled");
-		});
+// 		$("#deleteModal").on("hidden.bs.modal", function(event){
+// 			$("#cancelUserDelete").removeAttr("disabled");
+// 			$("#confirmUserDelete").attr("disabled", "disabled");
+// 		});
 
-		$("#addUserModal").on("hidden.bs.modal", function(event){
-			$("#okAddUser").removeAttr("disabled");
-		});
+// 		$("#addUserModal").on("hidden.bs.modal", function(event){
+// 			$("#okAddUser").removeAttr("disabled");
+// 		});
 
-		$("#errorModal").on("hidden.bs.modal", function(event){
-			$("#okErrorModal").removeAttr("disabled");
-		});
+// 		$("#errorModal").on("hidden.bs.modal", function(event){
+// 			$("#okErrorModal").removeAttr("disabled");
+// 		});
 		//---- end of section ----
 
 		//submit a new user

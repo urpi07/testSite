@@ -63,7 +63,7 @@
 							"lastName"=>$data['lastName'],
 							"middleName"=>$data['middleName'],
 							"email"=>$data['email'],
-							"phone"=>$data['phoneNumber'],
+							"phone"=>$data['phone'],
 							"birthdate"=>$formattedBday,
 							"privilege"=>intval($data["privilege"]),
 							"gender"=>$data["gender"],
@@ -100,15 +100,17 @@
 		}
 		
 		public function updateUserDetails($data){
-						
+				
+			$res = array();
+			
 			if(isset($data)){
-				$res = arrya();
+				
 				$args = array(
 						"firstName"=>$data['firstName'],
 						"lastName"=>$data['lastName'],
 						"middleName"=>$data['middleName'],
 						"email"=>$data['email'],
-						"phone"=>$data['phoneNumber'],
+						"phone"=>$data['phone'],
 						"birthdate"=> $data['birthdate'],
 						"privilege"=>$data["privilege"],
 						"gender"=>$data["gender"]
@@ -135,6 +137,8 @@
 				
 				echoLog($this->db->last_query(), $this->isDebugMode);
 			}
+			
+			return $res;
 		}
 		
 		public function login($username, $password){
