@@ -1,103 +1,122 @@
-<div class="panel panel-default">
-	<div class="panel-heading"><h3>System Users</h3></div>
+<div class="" id="mycontent">
+	<div class="panel panel-default">
+		<div class="panel-heading">
+			<h3>System Users</h3>
+		</div>
 
-	<div class="panel-body">
+		<div class="panel-body">
 
-		<!-- New User Form -->
-		<div id="newUser" class="collapse">
-					
-			<form method="POST" class="form-horizontal" action="userAccount"
-				id="newusers" name="newusers">
-				<div class="panel panel-default">
-					<div class="panel-body inner-panel">
-						<!-- TODO: Upload of the profile image -->
+			<!-- New User Form -->
+			<div id="newUser" class="collapse">
+
+				<form method="POST" class="form-horizontal" action="userAccount"
+					id="newusers" name="newusers">
+					<div class="panel panel-default">
+						<div class="panel-body inner-panel">
+							<!-- TODO: Upload of the profile image -->
 				<?php //print_r(apache_request_headers()); ?>
 				<h4>New User</h4>
-				
-						<div class="form-group">
-							<div class="col-sm-4">
-								<img src="assets/img/male_profilePic.png" class="img-thumbnail" alt="profile picture" id="profilePic">
+
+							<div class="form-group">
+								<div class="col-sm-4">
+									<img src="assets/img/male_profilePic.png" class="img-thumbnail"
+										alt="profile picture" id="profilePic">
+								</div>
+
+								<div class="col-md-5 imgUplader">
+									<span class="btn btn-default btn-file"> Upload Picture <input
+										type="file">
+									</span>
+								</div>
 							</div>
-							
-							<div class="col-md-5 imgUplader">
-								<span class="btn btn-default btn-file"> Upload Picture <input
-									type="file">
-								</span>
+
+							<div class="form-group">
+								<div class="col-sm-4">
+									<input type="text" name="firstName" required
+										placeholder="First Name" class="form-control" id="firstName" />
+								</div>
+								<div class="col-sm-4">
+									<input type="text" name="lastName" required
+										placeholder="Last Name" class="form-control" id="lastName" />
+								</div>
+								<div class="col-sm-4">
+									<input type="text" name="middleName" required
+										placeholder="Middle Name" class="form-control" id="middleName" />
+								</div>
 							</div>
-						</div>						
-										
-						<div class="form-group">
-							<div class="col-sm-4">
-								<input type="text" name="firstName" required
-									placeholder="First Name" class="form-control" id="firstName"/>
-							</div>
-							<div class="col-sm-4">
-								<input type="text" name="lastName" required
-									placeholder="Last Name" class="form-control" id="lastName"/>
-							</div>
-							<div class="col-sm-4">
-								<input type="text" name="middleName" required
-									placeholder="Middle Name" class="form-control" id="middleName"/>
-							</div>
-						</div>
-																
-						<div class="form-group">
-							<div class="col-sm-4">Birthdate</div><br>
-							<div class="col-sm-2">
-								<select name="birthMonth" class="form-control" id="birthMonth" required>
-									<option selected disabled hidden>Month</option>
-									<?php 
-									$months = array("January","February","March",
-											"April","May","June",
-											"July","August","September",
-											"October","November","December");
+
+							<div class="form-group">
+								<div class="col-sm-4">Birthdate</div>
+								<br>
+								<div class="col-sm-2">
+									<select name="birthMonth" class="form-control" id="birthMonth"
+										required>
+										<option selected disabled hidden>Month</option>
+									<?php
+									$months = array (
+											"January",
+											"February",
+											"March",
+											"April",
+											"May",
+											"June",
+											"July",
+											"August",
+											"September",
+											"October",
+											"November",
+											"December" 
+									);
 									
 									$monthValue = 1;
-									foreach($months as $month){
+									foreach ( $months as $month ) {
 										echo "<option value='$monthValue'>$month</option>";
-										$monthValue++;
+										$monthValue ++;
 									}
 									
 									?>
 								</select>
-							</div>
-							<div class="col-sm-2">
-								<select name="birthDate" class="form-control" id="birthDate" required>
-									<option selected disabled hidden>Date</option>
+								</div>
+								<div class="col-sm-2">
+									<select name="birthDate" class="form-control" id="birthDate"
+										required>
+										<option selected disabled hidden>Date</option>
 									<?php
-										for($date = 1; $date < 32; $date++){
-											echo "<option value='$date'>$date</option>";
-										}
+									for($date = 1; $date < 32; $date ++) {
+										echo "<option value='$date'>$date</option>";
+									}
 									?>
 								</select>
-							</div>
-							
-							<div class="col-sm-2">
-								<select name="birthYear" class="form-control" id="birthYear" required>
-									<option selected disabled hidden>Year</option>
-									<?php
-										$currentYear = date('Y');
-										$yearLimit = $currentYear - 150;
-										
-										while($currentYear >= $yearLimit){
-											echo "<option value='$currentYear'>$currentYear</option>";
-											$currentYear--;
-										}
-									?>
-								</select>
-							</div>
-							
-							<div class="col-sm-3">
-								<select class="form-control" name="gender" id="gender" required>
-									<option selected disabled hidden>[Gender]</option>
-									<option value="Male">Male</option>
-									<option value="Female">Female</option>
-								</select>
-							</div>
+								</div>
 
-							<div class="col-sm-3">
-								<select name="privilege" class="form-control" id="privilege" required>
-									<option selected disabled hidden>[Privilege]</option>
+								<div class="col-sm-2">
+									<select name="birthYear" class="form-control" id="birthYear"
+										required>
+										<option selected disabled hidden>Year</option>
+									<?php
+									$currentYear = date ( 'Y' );
+									$yearLimit = $currentYear - 150;
+									
+									while ( $currentYear >= $yearLimit ) {
+										echo "<option value='$currentYear'>$currentYear</option>";
+										$currentYear --;
+									}
+									?>
+								</select>
+								</div>
+
+								<div class="col-sm-3">
+									<select class="form-control" name="gender" id="gender" required>
+										<option selected disabled hidden>[Gender]</option>
+										<option value="Male">Male</option>
+										<option value="Female">Female</option>
+									</select>
+								</div>
+
+								<div class="col-sm-3">
+									<select name="privilege" class="form-control" id="privilege"
+										required>
+										<option selected disabled hidden>[Privilege]</option>
 								<?php
 								if (isset ( $privileges )) {
 									foreach ( $privileges as $privilege ) {
@@ -108,89 +127,89 @@
 								}
 								?>
 								</select>
+								</div>
+
+
+
 							</div>
-							
-							
 
-						</div>
+							<div class="form-group">
+								<div class="col-sm-3">
+									<input type="email" name="email" required placeholder="Email"
+										id="email" class="form-control" />
+								</div>
 
-						<div class="form-group">										
-							<div class="col-sm-3">
-								<input type="email" name="email" required placeholder="Email" id="email"
-									class="form-control" />
+								<div class="col-sm-6">
+									<input type="text" name="address" required
+										placeholder="Address" id="address" class="form-control" />
+								</div>
+
+								<div class="col-sm-3">
+									<input type="text" name="phoneNumber" required id="phone"
+										placeholder="Phone  Number" class="form-control" />
+								</div>
 							</div>
-							
-							<div class="col-sm-6">
-								<input type="text" name="address" required placeholder="Address" id="address"
-									class="form-control" />
-							</div>							
-							
-							<div class="col-sm-3">
-								<input type="text" name="phoneNumber" required id="phone"
-									placeholder="Phone  Number" class="form-control" />
-							</div>									
-						</div>
 
-						<div class="col-sm-offset-5 col-sm-7">
-							<button type="submit" class="btn btn-default" id="editSubmit">Submit</button>
-						</div>
-
-					</div>
-				</div>
-
-				<div class="panel panel-default" id="credentialPanel">
-					<div class="panel-body inner-panel">
-						<h4>User Credentials:</h4>
-
-						<div class="form-group">
-							<div class="col-sm-2"></div>
-							<label class="control-label col-sm-2" for="username">User Name: </label>
-							<div class="col-sm-4">
-								<input type="text" name="username" required id="username"
-									placeholder="User Name" class="form-control" />
+							<div class="col-sm-offset-5 col-sm-7">
+								<button type="submit" class="btn btn-default" id="editSubmit">Submit</button>
 							</div>
-							<div class="col-sm-2"></div>
-						</div>
 
-						<div class="form-group">
-							<div class="col-sm-2"></div>
-							<label class="control-label col-sm-2" for="password">Password: </label>
-							<div class="col-sm-4">
-								<input type="password" name="password" required id="password"
-									class="form-control" />
-							</div>
-							<div class="col-sm-2"></div>
-						</div>
-
-						<div class="form-group">
-							<div class="col-sm-2"></div>
-							<label class="control-label col-sm-2" for="vpassword">Verify
-								Password: </label>
-							<div class="col-sm-4">
-								<input type="password" name="vpassword" required id="vpassword"
-									class="form-control" />
-							</div>
-							<div class="col-sm-2"></div>
-						</div>
-
-
-						<div class="col-sm-offset-5 col-sm-7">
-							<button type="submit" class="btn btn-default">Submit</button>							
 						</div>
 					</div>
-				</div>
-			</form>			
-				
-		</div>
 
-		<!-- End of New User Form -->
+					<div class="panel panel-default" id="credentialPanel">
+						<div class="panel-body inner-panel">
+							<h4>User Credentials:</h4>
 
-		<button type="button" class="btn btn-primary" data-toggle="collapse"
-			data-target="#newUser" id="btnNewUser">New User</button>
-		<br>
-		<br>
-		<div class="table-responsive">
-			<table class="table-bordered" id="usersTable">
+							<div class="form-group">
+								<div class="col-sm-2"></div>
+								<label class="control-label col-sm-2" for="username">User Name:
+								</label>
+								<div class="col-sm-4">
+									<input type="text" name="username" required id="username"
+										placeholder="User Name" class="form-control" />
+								</div>
+								<div class="col-sm-2"></div>
+							</div>
+
+							<div class="form-group">
+								<div class="col-sm-2"></div>
+								<label class="control-label col-sm-2" for="password">Password: </label>
+								<div class="col-sm-4">
+									<input type="password" name="password" required id="password"
+										class="form-control" />
+								</div>
+								<div class="col-sm-2"></div>
+							</div>
+
+							<div class="form-group">
+								<div class="col-sm-2"></div>
+								<label class="control-label col-sm-2" for="vpassword">Verify
+									Password: </label>
+								<div class="col-sm-4">
+									<input type="password" name="vpassword" required id="vpassword"
+										class="form-control" />
+								</div>
+								<div class="col-sm-2"></div>
+							</div>
+
+
+							<div class="col-sm-offset-5 col-sm-7">
+								<button type="submit" class="btn btn-default">Submit</button>
+							</div>
+						</div>
+					</div>
+				</form>
+
+			</div>
+
+			<!-- End of New User Form -->
+
+			<button type="button" class="btn btn-primary" data-toggle="collapse"
+				data-target="#newUser" id="btnNewUser">New User</button>
+			<br> <br>
+			<div class="table-responsive">
+				<table class="table-bordered" id="usersTable">
 	<?php
 	
 	// var_dump($users);
@@ -227,85 +246,92 @@
 	?>
 	
 	</table>
+			</div>
+
+			<div id="deleteModal" class="modal fade" role="dialog">
+				<div class="modal-dialog">
+
+					<!-- Modal content-->
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal">&times;</button>
+							<h4 class="modal-title">Delete User</h4>
+						</div>
+						<div class="modal-body">
+							<p>Are you sure you want to delete this user??</p>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-default"
+								data-dismiss="modal" data-toggle="deleteModal"
+								id="confirmUserDelete">YES</button>
+							<button type="button" class="btn btn-default"
+								data-dismiss="modal" data-toggle="deleteModal"
+								id="cancelUserDelete">CANCEL</button>
+						</div>
+					</div>
+
+				</div>
+			</div>
+			<!-- End of the deleteModal dialog -->
+
+			<div id="addUserModal" class="modal fade" role="dialog">
+				<div class="modal-dialog">
+
+					<!-- Modal content-->
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal">&times;</button>
+							<h4 class="modal-title">Success</h4>
+						</div>
+						<div class="modal-body">
+							<p>User was successfully added.</p>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-default"
+								data-dismiss="modal" data-toggle="#addUserModal" id="okAddUser">OK</button>
+						</div>
+					</div>
+
+				</div>
+			</div>
+			<!-- End of the addUserModal dialog -->
+
+			<div id="errorModal" class="modal fade" role="dialog">
+				<div class="modal-dialog">
+
+					<!-- Modal content-->
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal">&times;</button>
+							<h4 class="modal-title" id="errorModalTitle">Delete User</h4>
+						</div>
+						<div class="modal-body">
+							<p id="errorMessage">Error adding user.</p>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-default"
+								data-dismiss="modal" data-target="#errorModal" id="okErrorModal">OK</button>
+						</div>
+					</div>
+
+				</div>
+			</div>
+			<!-- End of the addUserModal dialog -->
+
+			<ul class="pagination">
+				<li><a href="#">1</a></li>
+				<li><a href="#">2</a></li>
+				<li><a href="#">3</a></li>
+				<li><a href="#">4</a></li>
+				<li><a href="#">5</a></li>
+			</ul>
+
+
 		</div>
-
-		<div id="deleteModal" class="modal fade" role="dialog">
-			<div class="modal-dialog">
-
-				<!-- Modal content-->
-				<div class="modal-content">
-					<div class="modal-header">
-						<button type="button" class="close" data-dismiss="modal">&times;</button>
-						<h4 class="modal-title">Delete User</h4>
-					</div>
-					<div class="modal-body">
-						<p>Are you sure you want to delete this user??</p>
-					</div>
-					<div class="modal-footer">
-						<button type="button" class="btn btn-default" data-dismiss="modal"
-							data-toggle="deleteModal" id="confirmUserDelete">YES</button>
-						<button type="button" class="btn btn-default" data-dismiss="modal"
-						  	data-toggle="deleteModal" id="cancelUserDelete">CANCEL</button>
-					</div>
-				</div>
-
-			</div>
-		</div> <!-- End of the deleteModal dialog -->
-		
-		<div id="addUserModal" class="modal fade" role="dialog">
-			<div class="modal-dialog">
-
-				<!-- Modal content-->
-				<div class="modal-content">
-					<div class="modal-header">
-						<button type="button" class="close" data-dismiss="modal">&times;</button>
-						<h4 class="modal-title">Success</h4>
-					</div>
-					<div class="modal-body">
-						<p>User was successfully added.</p>
-					</div>
-					<div class="modal-footer">
-						<button type="button" class="btn btn-default" data-dismiss="modal" 
-							data-toggle="#addUserModal" id="okAddUser">OK</button>						
-					</div>
-				</div>
-
-			</div>
-		</div> <!-- End of the addUserModal dialog -->
-
-		<div id="errorModal" class="modal fade" role="dialog">
-			<div class="modal-dialog">
-
-				<!-- Modal content-->
-				<div class="modal-content">
-					<div class="modal-header">
-						<button type="button" class="close" data-dismiss="modal">&times;</button>
-						<h4 class="modal-title" id="errorModalTitle">Delete User</h4>
-					</div>
-					<div class="modal-body" >
-						<p id="errorMessage">Error adding user.</p>
-					</div>
-					<div class="modal-footer">
-						<button type="button" class="btn btn-default" data-dismiss="modal"
-							data-target="#errorModal" id="okErrorModal">OK</button>
-					</div>
-				</div>
-
-			</div>
-		</div>
-		<!-- End of the addUserModal dialog -->
-
-		<ul class="pagination">
-			<li><a href="#">1</a></li>
-			<li><a href="#">2</a></li>
-			<li><a href="#">3</a></li>
-			<li><a href="#">4</a></li>
-			<li><a href="#">5</a></li>
-		</ul>
-
-
-	</div>	<!-- end of panel-body -->
-</div> <!-- end of panel -->
+		<!-- end of panel-body -->
+	</div>
+	<!-- end of panel -->
+</div>
 
 <!-- TODO: add a pagination component -->
 <script src="<?php echo base_url(); ?>assets/js/bootstrap-datepicker.js"></script>

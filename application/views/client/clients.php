@@ -1,37 +1,38 @@
-<div class="modal fade" role="dialog" id="newClientModal">
-	<div class="modal-dialog">
+<div class="" id="mycontent">
+	<div class="modal fade" role="dialog" id="newClientModal">
+		<div class="modal-dialog">
 
-		<!-- Modal content-->
-		<div class="modal-content">
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal">&times;</button>
-				<h4 class="modal-title">Modal Header</h4>
+			<!-- Modal content-->
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title">Modal Header</h4>
+				</div>
+				<div class="modal-body">
+					<p>Some text in the modal.</p>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				</div>
 			</div>
-			<div class="modal-body">
-				<p>Some text in the modal.</p>
-			</div>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-			</div>
+
 		</div>
-
 	</div>
-</div>
 
 
-<!-- Actual content -->
-<div class="panel panel-default">
-	<div class="panel-heading">
-		<h3>Clients</h3>
-	</div>
-	<div class="panel-body">
-		<button type="button" class="btn btn-primary" data-toggle="collapse"
-			data-target="#newClientModal" id="btnNewClient">New Client</button>
+	<!-- Actual content -->
+	<div class="panel panel-default">
+		<div class="panel-heading">
+			<h3>Clients</h3>
+		</div>
+		<div class="panel-body">
+			<button type="button" class="btn btn-primary" data-toggle="collapse"
+				data-target="#newClientModal" id="btnNewClient">New Client</button>
 
-		<br> <br>
+			<br> <br>
 
-		<div class="table-responsive">
-			<table class="table-bordered" id="usersTable">
+			<div class="table-responsive">
+				<table class="table-bordered" id="usersTable">
 			<?php
 			
 			// var_dump($users);
@@ -68,11 +69,12 @@
 			?>
 	
 	</table>
+			</div>
 		</div>
+		<!-- End of panel body -->
 	</div>
-	<!-- End of panel body -->
+	<!-- End of Panel -->
 </div>
-<!-- End of Panel -->
 
 <script>
 

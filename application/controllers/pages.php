@@ -25,6 +25,15 @@ class Pages extends CI_Controller {
 			
 			switch($page){
 				
+				case "overview":
+					
+					$data["title"] = "Overview";
+					$this->load->view("templates/header", $data);
+					$this->load->view("pages/mainPanel", $data);
+					$this->load->view("pages/overview", $data);
+					$this->load->view("templates/footer", $data);
+					break;
+				
 				case "test":
 					$data["title"] = "Tester";
 					$data["tables"] = $this->tester->getTables();

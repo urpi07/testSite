@@ -80,7 +80,7 @@ class Client extends CI_Model{
 		$this->db->limit($limit, $start );
 		$query = $this->db->get("client");			
 		
-		echoLog($this->db->last_query(), true);
+		echoLog($this->db->last_query(), false);
 		return $query->result();
 	}
 }
