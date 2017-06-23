@@ -20,3 +20,20 @@ if (!function_exists( 'generateField' )) {
 		return $element;
 	}
 }
+
+//assigns the results in one variable
+if(!function_exists('setResult')){	
+	function setResult($title, $res, $message ){	
+		$result = array();
+		$result["result"] = $res;
+		$result["message"]= $message;
+		$result["title"] = $title;
+		return $result;
+	}
+}
+
+if(!function_exists('setQueryError')){
+	function setQueryError(){
+		return setResult("Query Error", QUERY_ERROR, "Data is not set");
+	}
+}

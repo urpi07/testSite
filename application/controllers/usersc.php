@@ -241,48 +241,6 @@ class UsersC extends Restful_Controller{
 		//for some reason the codeigniter validation 
 		//returns an emtpy error array when the validation fails
 		//for now doing manual validation
-// 		echo "Put data";
-// 		var_dump($_POST);
-		
-// 		$validationRules = array(
-// 				array('field' => 'firstName',
-// 						'rules' => 'trim|required'
-// 				),
-// 				array('field' => 'lastName',
-// 						'rules' => 'trim|required'
-// 				),
-// 				array('field' => 'middleName',
-// 						'rules' => 'trim|required'
-// 				),
-// 				array('field' => 'birthdate',
-// 						'rules' => 'trim|required'
-// 				),
-// 				array('field' => 'email',
-// 						'rules' => 'trim|required|valid_email'
-// 				),
-// 				array('field' => 'address',
-// 						'rules' => 'trim|required'
-// 				),
-// 				array('field' => 'phone',
-// 						'rules' => 'trim|required'
-// 				),
-// 				array('field' => 'gender',
-// 						'rules' => 'trim|required'
-// 				),
-// 				array('field' => 'privilege',
-// 						'rules' => 'trim|required'
-// 				)
-// 		);
-		
-// 		$this->form_validation->set_rules($validationRules);
-		
-// 		if($this->form_validation->run() === FALSE){ //validation failed
-								
-// 			//var_dump( $this->form_validation->validation_errors() );
-// 			$result["message"] = $this->form_validation->error_array();
-// 			$result["title"] = "Validation Error";
-// 			$result["result"] = VALIDATION_ERROR;
-// 		}
 		
 		$this->validation_errors = array();
 		

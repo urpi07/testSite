@@ -227,3 +227,6 @@ td:nth-child(8){
 .modal-content{
 	color:black;
 }
+.popupImageUpload{
+	height:30px;
+}

@@ -53,6 +53,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 $route['users'] = 'usersc/view/users';
 $route['user'] = 'usersc/view/user';
 $route['users/(:any)'] = 'usersc/view/$1';
+$route['client'] = 'clientc/view/client';
 $route['clients'] = 'clientc/view/clients';
 $route['client/(:any)'] = 'clientc/view/$1';
 $route['default_controller'] = 'pages/view';
