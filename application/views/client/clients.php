@@ -164,7 +164,7 @@
 			
 			// var_dump($users);
 			$tableHeaders = array (
-					"Id",
+					"ID",
 					"First Name",
 					"Last Name",
 					"Middle Name",
@@ -188,8 +188,16 @@
 					echo "\t<td>$client->lastName</td>\n";
 					echo "\t<td>$client->middleName</td>\n";
 					echo "\t<td>$client->phoneNumber</td>\n";
-					echo "\t<td><button type='button' class='btn btn-primary' " . "onclick='getClient($client->id)'>Edit</button></td>\n";
-					echo "\t<td><button type='button' class='btn btn-success' class='btnDelete' " . "data-toggle='modal' data-target='#deleteModal' " . "onclick='setClientToDelete($client->id)'>Delete</button></td>\n";
+					echo "\t<td>".
+							"<span class='btnEdit' onclick='getClient($client->id)'>".
+							"<i class='fa fa-pencil-square-o' aria-hidden='true'></i>&nbsp".
+							"Edit</span></td>\n";
+					echo "\t<td>".
+							"<span class='btnDelete' " .
+							"data-toggle='modal' data-target='#deleteModal' " .
+							"onclick='setClientToDelete($client->id)'>".
+							"<i class='fa fa-times' aria-hidden='true'></i>&nbsp".
+							"Delete</span></td>\n";
 					echo "</tr>\n";
 				}
 			}

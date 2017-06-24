@@ -1,7 +1,6 @@
 @CHARSET "ISO-8859-1";
 .panel{
 	background-color:rgba(0,0,0,0);
-	color:white;
 }
 .form-container{
   background: url(img/forest-wallpapers.jpg) no-repeat center center fixed;
@@ -177,20 +176,24 @@ body {
 	
 }
 #usersTable tr td, th{
-	padding:5px; 10px;
-	text-align:center;
+	padding:8px;
+	text-align:center;	
+}
+#usersTable th{
+	background-color:#8B8E92;	
 }
 #usersTable tr td:nth-child(1),
 td:nth-child(7),
 td:nth-child(8){
     width:5%;
 }
+#usersTable tr td:nth-child(7),
+#usersTable tr td:nth-child(8){
+	width:10%;
+}
 .panel-body {
 	background-color:#C6C2BD;
 	border-color:black;
-}
-.inner-panel{
-	background-color:#8D8983;
 }
 .panel-default{
 	background-color:black;
@@ -229,4 +232,8 @@ td:nth-child(8){
 }
 .popupImageUpload{
 	height:30px;
+}
+.btnDelete, .btnEdit{
+	cursor:pointer;
+	text-decoration:underline;
 }

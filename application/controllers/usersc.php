@@ -55,12 +55,12 @@ class UsersC extends Restful_Controller{
 				case "users":					
 					$data["users"] = $this->users->getUsers();
 					$data["privileges"] = $this->privilege->getPrivileges();
-					$datap["title"] = "Users";
+					$data["title"] = "Users";
 					
-					$this->load->view("templates/header");
-					$this->load->view("pages/mainPanel");
+					$this->load->view("templates/header", $data);
+					$this->load->view("pages/mainPanel", $data);
 					$this->load->view("users/users", $data);
-					$this->load->view("templates/footer");
+					$this->load->view("templates/footer", $data);
 					
 					break;
 					
