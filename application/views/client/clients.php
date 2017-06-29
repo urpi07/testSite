@@ -165,9 +165,7 @@
 			// var_dump($users);
 			$tableHeaders = array (
 					"ID",
-					"First Name",
-					"Last Name",
-					"Middle Name",
+					"Full Name",
 					"Number",
 					"Edit",
 					"Delete" 
@@ -184,9 +182,8 @@
 				foreach ( $clients as $client ) {
 					echo "<tr>\n";
 					echo "\t<td>$client->id</td>\n";
-					echo "\t<td>$client->firstName</td>\n";
-					echo "\t<td>$client->lastName</td>\n";
-					echo "\t<td>$client->middleName</td>\n";
+					echo "\t<td><a href='clientDetails?id=$client->id'>".
+						$client->firstName.", ".$client->lastName . " ". $client->middleName."</a></td>\n";
 					echo "\t<td>$client->phoneNumber</td>\n";
 					echo "\t<td>".
 							"<span class='btnEdit' onclick='getClient($client->id)'>".
@@ -258,6 +255,8 @@
 
 <script>
 
+var debugMode = true;
+var clientForm; 
 var clientForm = $("#newClientForm");
 var itemToDelete, itemToEdit;
 var formMode;
@@ -295,12 +294,6 @@ function setFormMode(mode){
 			args.data = {id: itemToDelete};
 			break;
 	}
-}
-
-function completeSubmit(){
-	console.log("Set cursor to default");	
-	$("body").css("cursor", "default");
-	clientForm.data('submitted', false);		
 }
 
 function populateForm(data){
@@ -367,19 +360,10 @@ function setClientToDelete(id){
 	$("#okCancelModal").modal();	
 }
 
-function sendAjax(payload, successCB, failCB){
-
-	console.log("Send AJAX payload " + JSON.stringify(payload));
-	$("body").css("cursor", "progress");
-	$.ajax(payload)
-	.done( successCB )
-	.fail( failCB );
-}
-
 //POST callbacks
 function postDone(data){
 
-	completeSubmit();
+	completeSubmit(clientForm);
 	console.log("post done data: " + JSON.stringify(data));
 	
 	var returnData = JSON.parse(data);
@@ -392,14 +376,13 @@ function postDone(data){
 	else{
 		showError(returnData);
 	}
-
 }
 
 function genericFailed(data){
 	console.log(args.method + " failed data: " + JSON.stringify(data));
 
 	var returnData = JSON.parse(data);	
-	completeSubmit();
+	completeSubmit(clientForm);
 	args.data = null;
 	showError(data);
 }
@@ -411,12 +394,12 @@ function submitForm(){
 		args.data = getFormArgs(); 
 		console.log("submitting the form on " + formMode);
 		console.log("payload " + JSON.stringify(args));
-		if(formMode == "post"){
-			sendAjax(args, postDone, genericFailed);
+		if(formMode == "post"){			
+			sendAjax(args, postDone, genericFailed, debugMode);
 		}
 		else if(formMode == "put"){
 			args.data.id = itemToEdit;
-			sendAjax(args, putDone, genericFailed);
+			sendAjax(args, putDone, genericFailed, debugMode);
 		}		
 	}	
 }
@@ -424,13 +407,13 @@ function submitForm(){
 //put callbacks
 function putDone(data){
 	
-	completeSubmit();	
+	completeSubmit(clientForm);	
 	console.log("put done data: " + JSON.stringify(data));
 	
 	var returnData = JSON.parse(data);
 
 	if(returnData && returnData.result == 1){			
-		args.data = null;
+		payLoad.data = null;
 		location.reload(); //refresh to see the changes		
 	}
 	else{
@@ -440,7 +423,7 @@ function putDone(data){
 
 //delete callbacks
 function deleteDone(data){
-	completeSubmit();
+	completeSubmit(clientForm);
 	console.log("delete success data: " + JSON.stringify(data));
 
 	var returnData = JSON.parse(data);
@@ -469,7 +452,7 @@ function showError(data){
 			if(Array.isArray(data.message)){
 
 				for(var i=0,len=data.message.length;i<len;i++){
-					message = message + data.message[i] + " ";
+					message = message + data.message[i] + " "  + "<br>";
 				}
 			}
 			else if( typeof data.message ===  "string"){
@@ -478,7 +461,7 @@ function showError(data){
 			else{ //handle an object
 				for( var key in data.message ){
 					if(data.message.hasOwnProperty(key)){
-						message = message + key + ": " + data.message[key];
+						message = message + key + ": " + data.message[key] + "<br>";
 					}
 				}
 			}
@@ -491,21 +474,21 @@ function showError(data){
 
 function getClient(id){	
 	itemToEdit = id;
-	args.data = {id:itemToEdit};
+	payLoad.data = {id:itemToEdit};
 	setFormMode("get");
-	sendAjax(args, getDone, genericFailed);
+	sendAjax(payLoad, getDone, genericFailed, debugMode);
 }
 
 //get callbacks
 function getDone(data){
-	completeSubmit();
+	completeSubmit(clientForm);
 	console.log("get done data: " + JSON.stringify(data));
 	
 	var returnData = JSON.parse(data);	
 
 	if(returnData && returnData.result == 1){
 		//clean up
-		args.data = null;		
+		payLoad.data = null;		
 		setFormMode("put");
 		populateForm(returnData.data[0]);
 		$("#newClientModal").modal();			
@@ -556,6 +539,8 @@ function validateForm(){
 
 $(document).ready(function(){
 
+	clientForm = $("#newClientForm");
+	
 	$("#okCancelModal").on("hide.bs.modal", function(event){
 		console.log("cancelBtn formMode " + formMode);
 		if(formMode == "put"){
@@ -563,7 +548,7 @@ $(document).ready(function(){
 			setFormMode("post");
 		}
 
-		completeSubmit();		
+		completeSubmit(clientForm);		
 	});		
 
 	$("#btnSubmit").click(function(event){
@@ -588,7 +573,7 @@ $(document).ready(function(){
 	$("#okBtn").click(function(event){		
 		if(formMode == "delete"){
 			console.log("deleting record ");
-			sendAjax(args, deleteDone, genericFailed);
+			sendAjax(payLoad, deleteDone, genericFailed, debugMode);
 		}
 	});	
 

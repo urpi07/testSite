@@ -19,3 +19,21 @@ jQuery.fn.preventDoubleSubmission = function() {
   // Keep chainability
   return this;
 };
+
+function sendAjax(payload, successCB, failCB, debugMode){
+
+	if(debugMode){
+		console.log("Send AJAX payload " + JSON.stringify(payload));
+	}
+	
+	$("body").css("cursor", "progress");
+	$.ajax(payload)
+	.done( successCB )
+	.fail( failCB );
+}
+
+function completeSubmit(myform){
+	console.log("Set cursor to default");	
+	$("body").css("cursor", "default");
+	myform.data('submitted', false);		
+}

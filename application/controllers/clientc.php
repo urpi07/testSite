@@ -11,6 +11,7 @@ class ClientC extends Restful_Controller{
 		$this->load->helper('form');
 		$this->load->helper("lendebug");
 		$this->load->model("client");
+		$this->load->model("loan");
 		
 	}
 	
@@ -54,6 +55,26 @@ class ClientC extends Restful_Controller{
 					$this->load->view("pages/mainPanel");
 					$this->load->view('client/'.$page, $data);
 					$this->load->view('templates/footer', $data);
+					break;
+					
+				case "clientDetails":
+					
+					if(isset($_GET) && isset($_GET["id"]) ){
+						$data["title"] = "Client Details";
+						$data["clientInfo"] = $this->client->get($_GET["id"]);
+						$data["result"]= $this->loan->getLoansByClient($_GET["id"]);											
+						
+						$this->load->view('templates/header', $data);
+						$this->load->view("pages/mainPanel", $data);
+						$this->load->view('client/'.$page, $data);
+						$this->load->view('templates/footer', $data);
+					}
+					else{
+						$this->load->view('templates/header', $data);
+						$this->load->view("pages/mainPanel", $data);
+						$this->load->view('client/clientDetailError', $data);
+						$this->load->view('templates/footer', $data);
+					}
 					break;
 					
 				default:

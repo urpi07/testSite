@@ -169,17 +169,18 @@ body {
 .table-bordered>thead>tr>td, .table-bordered>thead>tr>th{
 	border: 1px solid black;
 }
-#usersTable{
+#usersTable, #loanTable{
 	width:100%;
 	font-size:14px;
 	text-align:center;
 	
 }
-#usersTable tr td, th{
+#usersTable tr td, th,
+#loanTable tr td, th{
 	padding:8px;
 	text-align:center;	
 }
-#usersTable th{
+#usersTable th, #loanTable th{
 	background-color:#8B8E92;	
 }
 #usersTable tr td:nth-child(1),
@@ -236,4 +237,11 @@ td:nth-child(8){
 .btnDelete, .btnEdit{
 	cursor:pointer;
 	text-decoration:underline;
+}
+.bold{
+	font-weight: bold;
+}
+.thumbFrame{
+	border: 2px solid rgba(0,0,0,0.5) !important;
+	margin-bottom: 8px;
 }

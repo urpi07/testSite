@@ -168,7 +168,8 @@ class CI_Form_validation {
 	{
 		// No reason to set rules if we have no POST data
 		// or a validation array has not been specified
-		if ($this->CI->input->method() !== 'post' && empty($this->validation_data))
+		//hack such that validation would work on put
+		if (empty($this->validation_data))
 		{
 			return $this;
 		}
@@ -359,6 +360,11 @@ class CI_Form_validation {
 	public function error_array()
 	{
 		return $this->_error_array;
+	}
+	
+	public function config_rules()
+	{
+		return $this->_config_rules;
 	}
 
 	// --------------------------------------------------------------------

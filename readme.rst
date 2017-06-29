@@ -42,6 +42,16 @@ Installation
 Please see the `installation section <https://codeigniter.com/user_guide/installation/index.html>`_
 of the CodeIgniter User Guide.
 
+###################
+HACK
+###################
+To support form validation other than post I had to edit Form_validation.php in the set_rules function
+removing "$this->CI->input->method() !== 'post' &&". Then I have to call
+
+$this->form_validation->set_data($_POST);
+
+to set the data to be validated.
+
 *******
 License
 *******
