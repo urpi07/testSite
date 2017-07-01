@@ -91,7 +91,9 @@
 									<option selected disabled hidden>Date</option>
 									<?php
 									for($date = 1; $date < 32; $date ++) {
-										echo "<option value='$date'>$date</option>";
+										
+										$dateVal = ($date < 10)? "0".$date : $date;
+										echo "<option value='$dateVal'>$dateVal</option>";
 									}
 									?>
 								</select>
@@ -313,7 +315,7 @@ function populateForm(data){
 			$("#birthYear").prop('selectedIndex', 0);			
 		}
 
-		if(data.gender || data.gender == ""){
+		if( !data.gender || data.gender == ""){
 			$("#gender").prop('selectedIndex', 0);
 		}
 		else{
@@ -324,7 +326,7 @@ function populateForm(data){
 		data.lastName = (data.lastName) ? data.lastName : "";
 		data.middleName = (data.middleName) ? data.middleName : "";
 		data.comments = (data.comments) ? data.comments : "";
-		data.phone = (data.phone) ? data.phone : "";
+		data.phoneNumber = (data.phoneNumber) ? data.phoneNumber : "";
 		data.address = (data.address) ? data.address : "";		
 		data.email = (data.email) ? data.email : "";				
 		
@@ -332,7 +334,7 @@ function populateForm(data){
 		$("#lastName").val(data.lastName);
 		$("#middleName").val(data.middleName);
 		$("#comments").val(data.comment);
-		$("#phone").val(data.phone);
+		$("#phone").val(data.phoneNumber);
 		$("#address").val(data.address);		
 		$("#email").val(data.email);		
 	}
@@ -342,7 +344,7 @@ function resetForm(){
 
 	var data = {
 		firstName: "", lastName: "", middleName: "",
-		phone: "", email: "", address:"", 
+		phoneNumber: "", email: "", address:"", 
 		comment: "", gender: ""
 	};
 
@@ -413,7 +415,7 @@ function putDone(data){
 	var returnData = JSON.parse(data);
 
 	if(returnData && returnData.result == 1){			
-		payLoad.data = null;
+		args.data = null;
 		location.reload(); //refresh to see the changes		
 	}
 	else{
@@ -474,9 +476,9 @@ function showError(data){
 
 function getClient(id){	
 	itemToEdit = id;
-	payLoad.data = {id:itemToEdit};
+	args.data = {id:itemToEdit};
 	setFormMode("get");
-	sendAjax(payLoad, getDone, genericFailed, debugMode);
+	sendAjax(args, getDone, genericFailed, debugMode);
 }
 
 //get callbacks
@@ -488,7 +490,7 @@ function getDone(data){
 
 	if(returnData && returnData.result == 1){
 		//clean up
-		payLoad.data = null;		
+		args.data = null;		
 		setFormMode("put");
 		populateForm(returnData.data[0]);
 		$("#newClientModal").modal();			
@@ -573,7 +575,7 @@ $(document).ready(function(){
 	$("#okBtn").click(function(event){		
 		if(formMode == "delete"){
 			console.log("deleting record ");
-			sendAjax(payLoad, deleteDone, genericFailed, debugMode);
+			sendAjax(args, deleteDone, genericFailed, debugMode);
 		}
 	});	
 

@@ -57,75 +57,7 @@
 	</table>
 			</div>
 
-			<div id="deleteModal" class="modal fade" role="dialog">
-				<div class="modal-dialog">
 
-					<!-- Modal content-->
-					<div class="modal-content">
-						<div class="modal-header">
-							<button type="button" class="close" data-dismiss="modal">&times;</button>
-							<h4 class="modal-title">Delete User</h4>
-						</div>
-						<div class="modal-body">
-							<p>Are you sure you want to delete this user??</p>
-						</div>
-						<div class="modal-footer">
-							<button type="button" class="btn btn-default"
-								data-dismiss="modal" data-toggle="deleteModal"
-								id="confirmUserDelete">YES</button>
-							<button type="button" class="btn btn-default"
-								data-dismiss="modal" data-toggle="deleteModal"
-								id="cancelUserDelete">CANCEL</button>
-						</div>
-					</div>
-
-				</div>
-			</div>
-			<!-- End of the deleteModal dialog -->
-
-			<div id="addUserModal" class="modal fade" role="dialog">
-				<div class="modal-dialog">
-
-					<!-- Modal content-->
-					<div class="modal-content">
-						<div class="modal-header">
-							<button type="button" class="close" data-dismiss="modal">&times;</button>
-							<h4 class="modal-title">Success</h4>
-						</div>
-						<div class="modal-body">
-							<p>User was successfully added.</p>
-						</div>
-						<div class="modal-footer">
-							<button type="button" class="btn btn-default"
-								data-dismiss="modal" data-toggle="#addUserModal" id="okAddUser">OK</button>
-						</div>
-					</div>
-
-				</div>
-			</div>
-			<!-- End of the addUserModal dialog -->
-
-			<div id="errorModal" class="modal fade" role="dialog">
-				<div class="modal-dialog">
-
-					<!-- Modal content-->
-					<div class="modal-content">
-						<div class="modal-header">
-							<button type="button" class="close" data-dismiss="modal">&times;</button>
-							<h4 class="modal-title" id="errorModalTitle">Delete User</h4>
-						</div>
-						<div class="modal-body">
-							<p id="errorMessage">Error adding user.</p>
-						</div>
-						<div class="modal-footer">
-							<button type="button" class="btn btn-default"
-								data-dismiss="modal" data-target="#errorModal" id="okErrorModal">OK</button>
-						</div>
-					</div>
-
-				</div>
-			</div>
-			<!-- End of the addUserModal dialog -->
 			
 			<!-- New client form -->
 			<div id="newUser" class="modal fade" role="dialog">
@@ -346,6 +278,76 @@
 
 		</div>
 		<!-- end of panel-body -->
+		
+			<div id="deleteModal" class="modal fade" role="dialog">
+				<div class="modal-dialog">
+
+					<!-- Modal content-->
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal">&times;</button>
+							<h4 class="modal-title">Delete User</h4>
+						</div>
+						<div class="modal-body">
+							<p>Are you sure you want to delete this user??</p>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-default"
+								data-dismiss="modal" data-toggle="deleteModal"
+								id="confirmUserDelete">YES</button>
+							<button type="button" class="btn btn-default"
+								data-dismiss="modal" data-toggle="deleteModal"
+								id="cancelUserDelete">CANCEL</button>
+						</div>
+					</div>
+
+				</div>
+			</div>
+			<!-- End of the deleteModal dialog -->
+
+			<div id="addUserModal" class="modal fade" role="dialog">
+				<div class="modal-dialog">
+
+					<!-- Modal content-->
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal">&times;</button>
+							<h4 class="modal-title">Success</h4>
+						</div>
+						<div class="modal-body">
+							<p>User was successfully added.</p>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-default"
+								data-dismiss="modal" data-toggle="#addUserModal" id="okAddUser">OK</button>
+						</div>
+					</div>
+
+				</div>
+			</div>
+			<!-- End of the addUserModal dialog -->
+
+			<div id="errorModal" class="modal fade" role="dialog">
+				<div class="modal-dialog">
+
+					<!-- Modal content-->
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal">&times;</button>
+							<h4 class="modal-title" id="errorModalTitle">Delete User</h4>
+						</div>
+						<div class="modal-body">
+							<p id="errorMessage">Error adding user.</p>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-default"
+								data-dismiss="modal" data-target="#errorModal" id="okErrorModal">OK</button>
+						</div>
+					</div>
+
+				</div>
+			</div>
+			<!-- End of the addUserModal dialog -->		
 	</div>
 	<!-- end of panel -->
 </div>
@@ -448,7 +450,7 @@
 			var retData = JSON.parse(data);
 
 			if(retData && retData.result == 1){				
-				loadPage("users");
+				location.reload();
 			}
 			else{
 				showError(retData);
@@ -645,7 +647,7 @@
 		$("#okAddUser").click(function(event){
 			$(this).attr("disabled", "disabled");
 			console.log("reloading the page");
-			loadPage("users");
+			location.reload();
 		});	
 
 		$("#confirmUserDelete").click(function(event){
@@ -666,7 +668,7 @@
 					
 					if(deleteVal && deleteVal.result == 1){
 						console.log("reload the page " + data.result);
-						loadPage("users");
+						location.reload();
 					}
 					else{
 						console.log("show Error");

@@ -4,7 +4,6 @@ require("Restful_Controller.php");
 
 class UsersC extends Restful_Controller{
 	
-	private $validation_errors;
 	private $validationResult = true;	
 	
 	public function __construct(){
@@ -82,67 +81,48 @@ class UsersC extends Restful_Controller{
 		if(isset($_POST['birthYear']) && isset($_POST["birthMonth"]) && isset($_POST["birthDate"])){
 			$_POST["birthdate"] = $_POST['birthYear']."-".$_POST["birthMonth"]."-".$_POST["birthDate"];
 		}
-		
-		
+				
 		$validationRules = array(
 				array('field' => 'firstName',
-						'rules' => 'trim|required'
-				),
+						'rules' => 'trim|required'),
 				array('field' => 'lastName',
-						'rules' => 'trim|required'
-				),
+						'rules' => 'trim|required'),
 				array('field' => 'middleName',
-						'rules' => 'trim|required'
-				),
+						'rules' => 'trim|required'),
 				array('field' => 'birthdate',
-						'rules' => 'trim|required'
-				),
+						'rules' => 'trim|required'),
 				array('field' => 'email',
-						'rules' => 'trim|required|valid_email'
-				),
+						'rules' => 'trim|required|valid_email'),
 				array('field' => 'address',
-						'rules' => 'trim|required'
-				),
+						'rules' => 'trim|required'),
 				array('field' => 'phone',
-						'rules' => 'trim'
-				),
+						'rules' => 'trim'),
 				array('field' => 'gender',
-						'rules' => 'trim'
-				),
+						'rules' => 'trim'),
 				array( 'field' => 'username',
-						'rules' => 'trim|required'
-				),
+						'rules' => 'trim|required'),
 				array('field' => 'password',
-						'rules' => 'trim|required'
-				),
+						'rules' => 'trim|required'),
 				array('field' => 'vpassword',
-						'rules' => 'trim|required|matches[password]'
-				),
+						'rules' => 'trim|required|matches[password]'),
 				array('field' => 'privilege',
-						'rules' => 'trim|required'
-				)
+						'rules' => 'trim|required')
 		);
 		
+		$this->form_validation->set_data($_POST);
 		$this->form_validation->set_rules($validationRules);
 		
-		if($this->form_validation->run() === FALSE){ //validation failed
-			
-// 			echo "Validation failed. \n";
+		if($this->form_validation->run() === FALSE){ //validation failed			
 			$result["message"] = $this->form_validation->error_array();
 			$result["title"] = "Validation Error";
 			$result["result"] = VALIDATION_ERROR;
 			
-			//var_dump($result);
-			//TODO: reload the form with the corresponding errors.
 		}
 		else{ //validation success			
 			$result = $this->users->createNewUser($_POST);
 			
 			//create credentials only if there is a userId
-			//echo "userId ".$data["userId"];
 			if(isset($result["userId"]) && $result['result'] == 1 ){
-				
-				//echo "creating credentials \n";
 				$this->users->createUserCredentials($_POST["username"], $_POST["password"], $result["userId"]);
 			}							
 		}
@@ -154,43 +134,32 @@ class UsersC extends Restful_Controller{
 		
 		$validationRules = array(
 				array('field' => 'firstName',
-						'rules' => 'trim|required'
-				),
+						'rules' => 'trim|required'),
 				array('field' => 'lastName',
-						'rules' => 'trim|required'
-				),
+						'rules' => 'trim|required'),
 				array('field' => 'middleName',
-						'rules' => 'trim|required'
-				),
+						'rules' => 'trim|required'),
 				array('field' => 'birthdate',
-						'rules' => 'trim|required'
-				),
+						'rules' => 'trim|required'),
 				array('field' => 'email',
-						'rules' => 'trim|required|valid_email'
-				),
+						'rules' => 'trim|required|valid_email'),
 				array('field' => 'address',
-						'rules' => 'trim|required'
-				),
+						'rules' => 'trim|required'),
 				array('field' => 'phone',
-						'rules' => 'trim'
-				),
+						'rules' => 'trim'),
 				array('field' => 'gender',
-						'rules' => 'trim'
-				),
+						'rules' => 'trim'),
 				array( 'field' => 'username',
-						'rules' => 'trim|required'
-				),
+						'rules' => 'trim|required'),
 				array('field' => 'password',
-						'rules' => 'trim|required'
-				),
+						'rules' => 'trim|required'),
 				array('field' => 'vpassword',
-						'rules' => 'trim|required|matches[password]'
-				),
+						'rules' => 'trim|required|matches[password]'),
 				array('field' => 'privilege',
-						'rules' => 'trim|required'
-				)
+						'rules' => 'trim|required')
 		);
 		
+		$this->form_validation->set_data($_POST);
 		$this->form_validation->set_rules($validationRules);
 		
 		if($this->form_validation->run() === FALSE){ //validation failed
@@ -236,64 +205,41 @@ class UsersC extends Restful_Controller{
 				
 		if(isset($_POST['birthYear']) && isset($_POST["birthMonth"]) && isset($_POST["birthDate"])){
 			$_POST["birthdate"] = $_POST['birthYear']."-".$_POST["birthMonth"]."-".$_POST["birthDate"];
-		}
+		}	
 		
-		//for some reason the codeigniter validation 
-		//returns an emtpy error array when the validation fails
-		//for now doing manual validation
+		$validationRules = array(
+				array('field' => 'firstName',
+						'rules' => 'trim|required'),
+				array('field' => 'lastName',
+						'rules' => 'trim|required'),
+				array('field' => 'middleName',
+						'rules' => 'trim|required'),
+				array('field' => 'birthdate',
+						'rules' => 'trim|required'),
+				array('field' => 'email',
+						'rules' => 'trim|required|valid_email'),
+				array('field' => 'address',
+						'rules' => 'trim|required'),
+				array('field' => 'phone',
+						'rules' => 'trim'),
+				array('field' => 'gender',
+						'rules' => 'trim')
+		);
 		
-		$this->validation_errors = array();
+		$this->form_validation->set_data($_POST);
+		$this->form_validation->set_rules($validationRules);
 		
-		$_POST["firstName"] = ($this->basicValidation($_POST["firstName"], "First Name") == true ) ? 
-			$_POST["firstName"] : "";
-		$_POST["lastName"] = ($this->basicValidation($_POST["lastName"], "Last Name") == true ) ? 
-			$_POST["lastName"] : "";
-		$_POST["middleName"] = ($this->basicValidation($_POST["middleName"], "") == true ) ? 
-			$_POST["middleName"] : "";
-		$_POST["birthdate"] = ($this->basicValidation($_POST["birthdate"], "") == true ) ? 
-			$_POST["birthdate"] : "";
-		$_POST["email"] = ($this->basicValidation($_POST["email"], "") == true ) ? 
-			$_POST["email"] : "";
-		$_POST["address"] = ($this->basicValidation($_POST["address"], "") == true ) ? 
-			$_POST["address"] : "";
-		$_POST["phone"] = ($this->basicValidation($_POST["phone"], "") == true ) ? 
-			$_POST["phone"] : "";
-		$_POST["gender"] = ($this->basicValidation($_POST["gender"], "") == true ) ? 
-			$_POST["gender"] : "";
-		$_POST["privilege"] = ($this->basicValidation($_POST["privilege"], "") == true ) ? 
-			$_POST["privilege"] : "";
-				
-		if (!filter_var($_POST["email"], FILTER_VALIDATE_EMAIL)) {
-			$this->validationResult = false;
-			array($this->validation_errors,"Invalid email format");
-		}
-		
-		if($this->validationResult == false){
-			$result["message"] = $this->validation_errors;
+		if($this->form_validation->run() === FALSE){ //validation failed
+			$result["message"] =  $this->form_validation->error_array();
 			$result["title"] = "Validation Error";
 			$result["result"] = VALIDATION_ERROR;
-		}		
-		else{ //validation success
-			$result= $this->users->updateUserDetails($_POST);				
-		}
-		
-		return $result;
-	}
-	
-	private function basicValidation($field, $fieldName){
-		
-		$this->validationResult = true;
-		
-		if( isset($field)) {
-			$field = trim($field);
-			array_push($this->validation_errors, "Missing element $fieldName.");
 		}
 		else{
-			$this->validationResult= false;
-		}
+			$result= $this->users->updateUserDetails($_POST);
+		}			
 		
-		return $this->validationResult;
-	}
+		return $result;
+	}	
 	
 	public function doGet(){
 		
@@ -304,6 +250,5 @@ class UsersC extends Restful_Controller{
 		}
 		
 		return $res;
-	}	
-	
+	}		
 }

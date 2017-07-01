@@ -90,44 +90,35 @@ class ClientC extends Restful_Controller{
 		$result = array();
 		$validationRules = array(
 				array('field' => 'firstName',
-						'rules' => 'trim|required'
-				),
+						'rules' => 'trim|required'),
 				array('field' => 'lastName',
-						'rules' => 'trim|required'
-				),
+						'rules' => 'trim|required'),
 				array('field' => 'middleName',
-						'rules' => 'trim|required'
-				),
+						'rules' => 'trim|required'),
 				array('field' => 'birthdate',
-						'rules' => 'trim|required'
-				),
+						'rules' => 'trim|required'),
 				array('field' => 'email',
-						'rules' => 'trim|required|valid_email'
-				),
+						'rules' => 'trim|required|valid_email'),
 				array('field' => 'address',
-						'rules' => 'trim|required'
-				),
+						'rules' => 'trim|required'),
 				array('field' => 'phone',
-						'rules' => 'trim|required'
-				),
+						'rules' => 'trim|required'),
 				array('field' => 'gender',
-						'rules' => 'trim|required'
-				),
+						'rules' => 'trim|required'),
 				array('field' => 'comment',
-						'rules' => 'trim'
-				),
+						'rules' => 'trim'),
 				array('field' => 'picurl',
-						'rules' => 'trim'
-				)
+						'rules' => 'trim')
 		);
 		
+		$this->form_validation->set_data($_POST);
 		$this->form_validation->set_rules($validationRules);
 		
 		if($this->form_validation->run() === FALSE){ //validation failed
 			
 			$result["result"] = VALIDATION_ERROR;
 			$result["message"] = $this->form_validation->error_array() ;
-			$result["title"] = "Validation Error";			
+			$result["title"] = "Validation Error...";			
 		}
 		else{ //validation success		
 			$result= $this->client->add($_POST);								
@@ -140,7 +131,7 @@ class ClientC extends Restful_Controller{
 		parent::doDelete();
 		
 		$result = array();
-		//var_dump($_POST);
+		
 		if(isset($_POST["id"])){
 			$result= $this->client->delete($_POST["id"]);
 		}
@@ -153,81 +144,44 @@ class ClientC extends Restful_Controller{
 		return $result;
 	}
 	
-	public function doPut(){
-		
+	public function doPut(){		
 		parent::doPut();			
 		$result = array();
-		$validationErrors = array();
 		
-		if(isset($_POST["firstName"])){
-			$_POST["firstName"] = trim($_POST["firstName"]);
-		}
-		else{
-			array_push($validationErrors, "Firstname is missing.");
-		}
+		$validationRules = array(
+				array('field' => 'firstName',
+						'rules' => 'trim|required'),
+				array('field' => 'lastName',
+						'rules' => 'trim|required'),
+				array('field' => 'middleName',
+						'rules' => 'trim|required'),
+				array('field' => 'birthdate',
+						'rules' => 'trim|required'),
+				array('field' => 'email',
+						'rules' => 'trim|required|valid_email'),
+				array('field' => 'address',
+						'rules' => 'trim|required'),
+				array('field' => 'phone',
+						'rules' => 'trim|required'),
+				array('field' => 'gender',
+						'rules' => 'trim|required'),
+				array('field' => 'comment',
+						'rules' => 'trim'),
+				array('field' => 'picurl',
+						'rules' => 'trim')
+		);
 		
-		if(isset($_POST["lastName"])){
-			$_POST["lastName"] = trim($_POST["lastName"]);
-		}
-		else{
-			array_push($validationErrors, "Last Name is missing.");
-		}
+		$this->form_validation->set_data($_POST);
+		$this->form_validation->set_rules($validationRules);		
 		
-		if(isset($_POST["middleName"])){
-			$_POST["middleName"] = trim($_POST["middleName"]);
-		}
-		else{
-			array_push($validationErrors, "Middle Name is missing.");
-		}
-		
-		if(isset($_POST["email"])){
-			$_POST["email"] = trim($_POST["email"]);
-			
-			if (!filter_var($_POST["email"], FILTER_VALIDATE_EMAIL)) {
-				array_push($validationErrors, "Invalid email.");
-			}
-		}
-		else{
-			array_push($validationErrors, "Email is missing.");
-		}
-		
-		if(isset($_POST["address"])){
-			$_POST["address"] = trim($_POST["address"]);
-		}
-		else{
-			array_push($validationErrors, "Address is missing.");
-		}
-		
-		if(isset($_POST["phone"])){
-			$_POST["phone"] = trim($_POST["phone"]);
-		}
-		else{
-			array_push($validationErrors, "Phone is missing.");
-		}
-		
-		if(isset($_POST["birthdate"])){
-			$_POST["birthdate"] = trim($_POST["birthdate"]);
-		}
-		else{
-			array_push($validationErrors, "Birthdate is missing.");
-		}
-		
-		if(isset($_POST["gender"])){
-			$_POST["gender"] = trim($_POST["gender"]);
-		}
-		else{
-			array_push($validationErrors, "Gender is missing.");
-		}
-									
-		if( count($validationErrors) > 0 ){ //validation failed
-			
+		if($this->form_validation->run() === FALSE){ //validation failed
 			$result["result"] = VALIDATION_ERROR;
-			$result["message"] = $validationErrors;
-			$result["title"] = "";
+			$result["message"] = $this->form_validation->error_array() ;
+			$result["title"] = "Validation Error";
 		}
-		else{ //validation success
+		else{
 			$result= $this->client->edit($_POST);
-		}
+		}			
 		
 		return $result;
 	}
@@ -245,6 +199,5 @@ class ClientC extends Restful_Controller{
 		}
 		
 		return $result;
-	}
-	
+	}	
 }

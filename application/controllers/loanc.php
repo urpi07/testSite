@@ -32,8 +32,7 @@ class LoanC extends Restful_Controller{
 		parent::doPost();
 		$result = array();
 		
-		$_POST["amount"] = number_format($_POST["amount"], 2, ".", "");
-// 		echo "Amount: ".$_POST["amount"];		
+		$_POST["amount"] = number_format($_POST["amount"], 2, ".", "");	
 		
 		$validationRules = array(
 				array("field" => "amount",

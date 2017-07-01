@@ -14,8 +14,7 @@
 			$this->db->select("*");
 			$this->db->from("userdetails");
 			$this->db->limit($limit, $start);					
-			$query = $this->db->get();
-// 			echoLog($this->db->last_query(), true);
+			$query = $this->db->get(); 		
 			
 			return $query->result();
 		}
@@ -34,10 +33,7 @@
 				
 				if( !$this->db->insert("usercredentials", $args) ){
 					$error = $this->db->error();
-				}
-				
-				//$sql = "INSERT INTO usercredentials (username, password) VALUES (".$username.
-				//", '".$password."')";
+				}				
 				
 				echoLog($this->db->last_query(), $this->isDebugMode);															
 			}
@@ -68,12 +64,7 @@
 							"privilege"=>intval($data["privilege"]),
 							"gender"=>$data["gender"],
 							"address"=>$data["address"]
-					);
-					
-					// 	$sql = "INSERT INTO userdetails(firstName, lastName, middleName, ".
-					// 		"email, phone, gender, birthdate, credentialId, privilege) ".
-					// 		"VALUES($firstName, $lastName, $middleName, $email, $phone, ".
-					// 		"$gender, $birthdate, $credentialId, $privilege)" ;
+					);					
 					
 					$this->db->insert("userdetails", $args);
 					echoLog($this->db->last_query(), $this->isDebugMode);
@@ -92,11 +83,10 @@
 			
 			if(isset($email)){
 				$result = $this->db->get_where("userdetails", array("email" => $email));											
-				echoLog($this->db->last_query(), $this->isDebugMode);
-				
-				echoLog("isAccountExisting ". count($result->result()), $this->isDebugMode);
 				return ( count($result->result()) > 0 );
 			}
+			
+			return true; //by default return true if email is not set
 		}
 		
 		public function updateUserDetails($data){
