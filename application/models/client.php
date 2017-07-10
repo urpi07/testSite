@@ -23,7 +23,7 @@ class Client extends CI_Model{
 					"lastName"=>$data['lastName'],
 					"middleName"=>$data['middleName'],
 					"email"=>$data['email'],
-					"phoneNumber"=>$data['phoneNumber'],
+					"phoneNumber"=>$data['phone'],
 					"birthdate"=>$formattedBday,
 					"gender"=>$data["gender"],
 					"address"=>$data["address"],

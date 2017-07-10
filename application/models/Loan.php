@@ -44,6 +44,40 @@ class Loan extends CI_Model{
 		return $this->result;
 	}
 	
+	// I addition to inserting the loan, it also creates the 
+	// payment chunks with the interest and stores them in the database.
+	public function generateLoanAndPayments($data){
+		$result = array();
+		
+		if(isset($data)){
+			$args = array("debtorId" => $data["debtorId"],
+					"creditorId" => ( isset($data["creditorId"]) ) ? $data["creditorId"] : null,
+					"loanAmount" => $data["amount"],
+					"interest" => $data["interest"],
+					"comments" => $data["comments"],
+					"collateral" => $data["collateral"], //How to go about??
+					"loanStatus" => $data["loanStatus"],
+					"loanTenure" => $data["loanTenure"],
+					"tenurePeriod" => $data["tenurePeriod"]
+			);
+			
+			$this->db->trans_start();
+			$this->db->insert("loan", $args);
+			$loanId = $this->db->insert_id();
+			
+			//now create the payment chunks
+			$amountToPay = getInterestAmount($data["amount"], $data["interest"], $data["loanTenure"]);
+			$amountChunks = $amountToPay/$data["loanTenure"];
+			
+			$this->db->trans_complete();			
+		}
+		else{
+			$result = setQueryError();
+		}
+		
+		return $result;
+	}
+	
 	public function edit($data){
 		$this->result = array();
 		

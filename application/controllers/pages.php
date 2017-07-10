@@ -43,6 +43,16 @@ class Pages extends CI_Controller {
 					$this->load->view("pages/test.php", $data);
 					break;
 					
+				case "dateTest":
+					$data["dateInterval"] = getTimeChunks("months", 12, new DateTime("2017-07-31T00:15:05"));
+					$data["title"] = "Date Testing";
+					
+					$this->load->view('templates/header', $data);
+					$this->load->view("pages/dateTest.php", $data);
+					$this->load->view('templates/footer', $data);
+					
+					break;
+					
 				case "dbForm":
 					
 					$data["title"] = "Tester";
