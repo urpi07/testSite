@@ -75,8 +75,8 @@
                 </li>
                 
                  <li>
-                  <a href="overview" class="menulink">
-                  <i class="fa fa-plane fa-lg"></i> Overview
+                  <a href="settingsView" class="menulink">
+                  <i class="fa fa-plane fa-lg"></i> Settings
                   </a>
                 </li>                
             </ul>

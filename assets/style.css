@@ -245,3 +245,21 @@ td:nth-child(8){
 	border: 2px solid rgba(0,0,0,0.5) !important;
 	margin-bottom: 8px;
 }
+.settingDescription{
+	font-weight: lighter;
+	font-size: 12px;
+}
+.row-bordered{
+	border-bottom: solid 1px black;
+	margin-bottom:12px;
+	padding-bottom:12px;
+}
+.settingValue{
+	float:right;
+}
+.btn-new-setting{
+	margin: 20px 15px;
+}
+.settingName{
+	font-weight: bold;
+}
