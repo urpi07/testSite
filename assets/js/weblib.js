@@ -37,3 +37,34 @@ function completeSubmit(myform){
 	$("body").css("cursor", "default");
 	myform.data('submitted', false);		
 }
+
+function getFormData(form){
+	
+	var formData = {};
+	
+	if(form){
+		
+		form.find(':input').each(function(){
+			
+			if(this.attr('type') == 'radio'){			
+				formData[$(this).attr('name')] = $(this).find(':checked').val();
+			}
+			else{
+				formData[$(this).attr('name')] = $(this).val();	
+			}
+			
+		});
+		
+		form.find('textarea').each(function(){
+			formData[$(this).attr('name')] = $(this).val();
+		});
+		
+		form.find('select').each(function(){
+			formData[$(this).attr('name')] = $(this).find(':selected').text();
+		});
+		
+		
+	}
+	
+	return formData;
+}

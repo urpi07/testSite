@@ -64,7 +64,7 @@
 
                  <li>
                   <a href="user" class="menulink">
-                  <i class="fa fa-user fa-lg"></i> Profile
+                  <i class="fa fa-user fa-lg"></i> Partners
                   </a>
                   </li>
 
@@ -78,7 +78,16 @@
                   <a href="settingsView" class="menulink">
                   <i class="fa fa-plane fa-lg"></i> Settings
                   </a>
-                </li>                
+                </li>  
+                
+                <li data-toggle="collapse" data-target="#new" class="collapsed">
+                  <a href="#"><i class="fa fa-car fa-lg"></i> Tools <span class="arrow"></span></a>
+                </li>
+                <ul class="sub-menu collapse" id="new">
+                  <li>Calendar</li>
+                  <li>Calculator</li>
+                  <li>Reminders</li>
+                </ul>                              
             </ul>
      </div>
 </div>

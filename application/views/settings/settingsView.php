@@ -219,11 +219,13 @@
 	}
 
 	function updateForm(){
-		
+		validateSettingsForm();
 	}
 
 	function validateSettingsForm(){
-		
+		var formData = getFormData( $('#settingsForm') );
+
+		console.log( "Form Data: " + JSON.stringify(formData));
 	}
 
 	function getSettingsFormArgs(){
